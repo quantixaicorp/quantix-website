@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuantixAI – Soluções de Software com Inteligência Artificial</title>
+  <meta name="description" content="A QuantixAI transforma empresas com soluções de software inteligentes. Automação, ERP e IA para revolucionar o seu negócio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #191E29;
+      --bg2:    #132D46;
+      --accent: #01C38D;
+      --fg:     #FFFFFF;
+      --muted:  #696E79;
+      --border: rgba(1,195,141,0.14);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(25, 30, 41, 0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .nav-logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
+    .nav-logo-name {
+      font-family: 'DM Sans', sans-serif; font-weight: 700;
+      font-size: 1.1rem; color: var(--fg); letter-spacing: -.02em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: .875rem; font-weight: 500;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; overflow: hidden;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 64%, rgba(1,195,141,.08) 0%, transparent 70%),
+        var(--bg);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      pointer-events: none; z-index: 0; opacity: .022;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-size: .72rem; font-weight: 600; letter-spacing: .06em;
+      padding: 5px 14px; border-radius: 20px;
+      background: rgba(1,195,141,.08);
+      color: var(--accent);
+      border: 1px solid rgba(1,195,141,.22);
+      margin-bottom: 2rem;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: blink 2.2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 5.5vw, 4rem);
+      line-height: 1.1; letter-spacing: -.01em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-headline .ac { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1rem; color: var(--muted);
+      max-width: 490px; line-height: 1.82;
+      margin-bottom: 2.75rem;
+    }
+
+    /* ── HUB DIAGRAM ── */
+    .hub-outer {
+      display: flex; justify-content: center;
+      width: 100%; margin-bottom: 2.75rem;
+    }
+    .hub-wrap {
+      position: relative;
+      width: 560px; height: 300px;
+      flex-shrink: 0;
+    }
+
+    /* SVG overlay for connecting lines */
+    .hub-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .hub-line {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      stroke-opacity: .22;
+      stroke-dasharray: 320;
+      stroke-dashoffset: 320;
+    }
+    .hl1 { animation: draw 1.5s ease-out .25s forwards; }
+    .hl2 { animation: draw 1.5s ease-out .45s forwards; }
+    .hl3 { animation: draw 1.5s ease-out .65s forwards; }
+    .hl4 { animation: draw 1.5s ease-out .85s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    /* Center node */
+    .hub-center {
+      position: absolute;
+      width: 92px; height: 92px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 1px rgba(1,195,141,.3), 0 0 52px rgba(1,195,141,.18);
+    }
+    .hub-center img {
+      width: 74px; height: 74px; object-fit: contain;
+    }
+
+    /* Peripheral nodes */
+    .hub-node {
+      position: absolute;
+      width: 148px;
+      background: var(--bg2);
+      border: 1px solid rgba(1,195,141,.28);
+      border-radius: 12px;
+      padding: .55rem .85rem;
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .775rem; font-weight: 600; color: var(--fg);
+      opacity: 0;
+      animation: nodein .45s ease-out forwards;
+    }
+    .hn-tl { top: 16px; left: 16px;  animation-delay: .4s; }
+    .hn-tr { top: 16px; right: 16px; animation-delay: .6s; }
+    .hn-bl { bottom: 16px; left: 16px;  animation-delay: .8s; }
+    .hn-br { bottom: 16px; right: 16px; animation-delay: 1s; }
+    @keyframes nodein {
+      from { opacity: 0; transform: scale(.86); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .cta-btn {
+      background: var(--accent); color: #fff; border: none;
+      padding: .88rem 2.2rem; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: .92rem; font-weight: 700;
+      cursor: pointer; text-decoration: none; display: inline-block;
+      transition: opacity .2s, transform .18s;
+      letter-spacing: .01em;
+    }
+    .cta-btn:hover { opacity: .86; transform: translateY(-1px); }
+
+    /* ── SERVICES ── */
+    .services { padding: 7rem 2rem; background: var(--bg2); text-align: center; }
+
+    .section-label {
+      font-size: .7rem; text-transform: uppercase;
+      letter-spacing: .12em; color: var(--accent);
+      margin-bottom: .55rem; font-weight: 600;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif; font-size: 2rem;
+      margin-bottom: .6rem; color: var(--fg); letter-spacing: -.01em;
+    }
+    .section-sub { color: var(--muted); font-size: .92rem; margin-bottom: 3.5rem; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem; max-width: 960px; margin: 0 auto;
+    }
+    .card {
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,.05);
+      border-left: 3px solid var(--accent);
+      border-radius: 14px;
+      padding: 1.85rem 1.5rem;
+      text-align: left;
+      transition: background .2s, border-color .2s;
+    }
+    .card:hover {
+      background: rgba(19,45,70,.45);
+      border-color: rgba(1,195,141,.5);
+    }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(1,195,141,.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.1rem;
+    }
+    .card h3 {
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700;
+      margin-bottom: .55rem; color: var(--fg);
+    }
+    .card p { font-size: .875rem; color: var(--muted); line-height: 1.78; }
+
+    /* ── ABOUT ── */
+    .about { padding: 7rem 2rem; background: var(--bg); text-align: center; }
+    .about-inner { max-width: 660px; margin: 0 auto; }
+    .about-inner p { color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 1rem; }
+    .about-inner strong { color: var(--fg); font-weight: 600; }
+
+    .stats { display: flex; justify-content: center; gap: 4rem; margin-top: 3.5rem; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'DM Sans', sans-serif; font-size: 2.4rem; font-weight: 700;
+      color: var(--accent); letter-spacing: -.025em;
+    }
+    .stat-label { font-size: .8rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── CONTACT ── */
+    .contact-cta {
+      padding: 5rem 2rem; background: var(--bg2); text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .contact-cta h2 {
+      font-family: 'DM Serif Display', serif; font-size: 1.85rem;
+      margin-bottom: .75rem; color: var(--fg); letter-spacing: -.01em;
+    }
+    .contact-cta p { color: var(--muted); margin-bottom: 1.75rem; font-size: .95rem; }
+    .email-link {
+      color: var(--accent); text-decoration: none;
+      font-size: 1rem; font-weight: 600;
+      border-bottom: 1px solid rgba(1,195,141,.35); padding-bottom: 2px;
+      transition: border-color .2s;
+    }
+    .email-link:hover { border-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.75rem 2rem; text-align: center;
+      background: #0d1117;
+      border-top: 1px solid rgba(255,255,255,.04);
+      color: #4a5568; font-size: .8rem;
+    }
+    footer .ac { color: var(--accent); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-logo-name { font-size: 1rem; }
+      .nav-links { gap: 1.25rem; }
+      .nav-links a { font-size: .8rem; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .hub-wrap {
+        transform: scale(.56);
+        transform-origin: top center;
+        margin-bottom: -118px;
+      }
+      .hero-sub { font-size: .95rem; }
+      .stats { gap: 2rem; }
+      .stat-num { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <!-- Inline atom SVG — no image bg issues, brand green accent -->
+      <svg class="nav-logo-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="40" cy="40" rx="16" ry="32" stroke="rgba(255,255,255,.82)" stroke-width="2.5" fill="none"/>
+        <ellipse cx="40" cy="40" rx="16" ry="32" stroke="rgba(255,255,255,.82)" stroke-width="2.5" fill="none" transform="rotate(60 40 40)"/>
+        <ellipse cx="40" cy="40" rx="16" ry="32" stroke="rgba(255,255,255,.55)" stroke-width="2.5" fill="none" transform="rotate(120 40 40)"/>
+        <circle cx="40" cy="8.5" r="3.5" fill="#01C38D"/>
+        <circle cx="40" cy="40" r="5.5" fill="#01C38D"/>
+      </svg>
+      <span class="nav-logo-name">QuantixAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Inteligência Artificial · Soluções que Escalam
+    </div>
+
+    <h1 class="hero-headline">
+      Tecnologia que <span class="ac">Transforma</span><br>Empresas
+    </h1>
+
+    <p class="hero-sub">
+      Desenvolvemos software inteligente que automatiza processos, integra operações e gera resultados reais para o seu negócio.
+    </p>
+
+    <!-- HUB DIAGRAM
+         Container: 560×300. Hub center at (280,150).
+         Node centers (width=148px, height≈44px):
+           TL (16,16) → center (90,38)
+           TR (right:16) → center (470,38)
+           BL (bottom:16,left:16) → center (90,262)
+           BR (bottom:16,right:16) → center (470,262)
+         Lines radiate from hub (280,150) outward via Q bezier.
+    -->
+    <div class="hub-outer">
+      <div class="hub-wrap">
+
+        <svg class="hub-svg" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+          <path class="hub-line hl1" d="M 280 150 Q 185 150 90 38"/>
+          <path class="hub-line hl2" d="M 280 150 Q 375 150 470 38"/>
+          <path class="hub-line hl3" d="M 280 150 Q 185 150 90 262"/>
+          <path class="hub-line hl4" d="M 280 150 Q 375 150 470 262"/>
+        </svg>
+
+        <div class="hub-center">
+          <img src="white-logo-quantix.png" alt="QuantixAI">
+        </div>
+
+        <!-- Automação -->
+        <div class="hub-node hn-tl">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#01C38D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+          Automação
+        </div>
+
+        <!-- ERP Sob Medida -->
+        <div class="hub-node hn-tr">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#01C38D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+          ERP Sob Medida
+        </div>
+
+        <!-- Soluções de IA -->
+        <div class="hub-node hn-bl">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#01C38D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v1M12 20v1M3 12H2M22 12h-1M6.41 6.41l-.71-.71M18.3 6.3l-.7.7M6.41 17.59l-.71.71M17.59 17.59l.71.71"/>
+          </svg>
+          Soluções de IA
+        </div>
+
+        <!-- Analytics -->
+        <div class="hub-node hn-br">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#01C38D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18M7 16l4-4 4 4 4-6"/>
+          </svg>
+          Analytics
+        </div>
+
+      </div>
+    </div>
+
+    <a href="#servicos" class="cta-btn">Conheça nossas soluções</a>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="servicos">
+    <p class="section-label">O que fazemos</p>
+    <h2 class="section-title">Nossas Soluções</h2>
+    <p class="section-sub">Três pilares para revolucionar a sua empresa</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#01C38D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </div>
+        <h3>Automação Inteligente</h3>
+        <p>Elimine tarefas repetitivas e libere sua equipe para o que realmente importa. Nossos agentes de IA trabalham 24/7 com precisão e escalabilidade total.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#01C38D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4M7 8h.01M12 8h.01M17 8h.01M7 12h10"/>
+          </svg>
+        </div>
+        <h3>ERP Sob Medida</h3>
+        <p>Sistemas de gestão empresarial integrados com IA, adaptados à realidade do seu negócio. Controle completo sobre finanças, estoque, RH e operações.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#01C38D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 3v1M12 20v1M3 12H2M22 12h-1M6.41 6.41l-.71-.71M18.3 6.3l-.7.7M6.41 17.59l-.71.71M17.59 17.59l.71.71"/>
+          </svg>
+        </div>
+        <h3>Soluções de IA</h3>
+        <p>Modelos preditivos, processamento de linguagem natural, visão computacional e análise avançada de dados para decisões mais rápidas e precisas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="sobre">
+    <div class="about-inner">
+      <p class="section-label">Quem somos</p>
+      <h2 class="section-title">Sobre a QuantixAI</h2>
+      <p>
+        Somos uma empresa especializada em soluções de software com inteligência artificial, criada para <strong>transformar a maneira como negócios operam</strong>. Combinamos expertise técnica com visão estratégica para entregar produtos que geram impacto real.
+      </p>
+      <p>
+        Desde automação de fluxos operacionais até sistemas ERP integrados com IA generativa, desenvolvemos tecnologia que escala junto com o crescimento da sua empresa — com segurança, eficiência e inovação em cada etapa.
+      </p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">+20</div>
+          <div class="stat-label">Clientes atendidos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Taxa de satisfação</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3x</div>
+          <div class="stat-label">Ganho médio de produtividade</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta" id="contato">
+    <h2>Pronto para transformar seu negócio?</h2>
+    <p>Entre em contato e descubra como a QuantixAI pode ajudar sua empresa.</p>
+    <a class="email-link" href="mailto:quantixaicorp@gmail.com">quantixaicorp@gmail.com</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span class="ac">QuantixAI</span> · Soluções de Software com Inteligência Artificial</p>
+  </footer>
+
+</body>
+</html>
